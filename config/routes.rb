@@ -1,5 +1,8 @@
 RailsGaame::Application.routes.draw do
+  devise_for :players
   devise_for :models
+  resources :players
+  resources :tournaments
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
