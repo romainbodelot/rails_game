@@ -1,1 +1,21 @@
-<button type="button" class="btn btn-primary">Primary</button>
+<% if current_player.is_admin? %>
+<button type="button" class="btn btn-primary">Admin</button>
+<% end %>
+
+<h1>All tournois</h1>
+
+<ul id="tournaments">
+  <% @tournaments.each do |t| %>
+    <li>
+      <%= link_to t.title, tournament_path(t), class: 't_title' %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Create a New t", new_tournament_path, class: "new_t" %>
+
+<% if player_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_player_session_path, method: :delete) %>
+  </li>
+<% end %>

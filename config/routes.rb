@@ -1,9 +1,15 @@
 RailsGaame::Application.routes.draw do
-  devise_for :players
+  devise_for :players, :controllers => { omniauth_callbacks: 'players/omniauth_callbacks' }
   devise_for :models
   resources :players
   resources :tournaments
 
+  devise_scope :player do
+    get '/players/auth/:provider/upgrade' => 'players/omniauth_callbacks#upgrade', as: :player_omniauth_upgrade
+    get '/players/auth/:provider/setup', :to => 'players/omniauth_callbacks#setup'
+  end
+
+  root :to => 'tournaments#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

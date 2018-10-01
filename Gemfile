@@ -27,6 +27,7 @@ gem 'cancancan', '~> 1.10'
 gem 'devise'
 
 gem 'omniauth'
+gem 'omniauth-facebook'
 
 gem 'geocoder'
 
@@ -35,6 +36,10 @@ gem 'bootstrap-sass', '3.2.0.2'
 gem 'autoprefixer-rails', '8.6.5'
 
 gem 'strong_parameters'
+
+gem 'figaro'
+
+gem 'net_http_ssl_fix', require: 'net_http_ssl_fix'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
