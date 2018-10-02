@@ -13,9 +13,9 @@ class Player < ActiveRecord::Base
       player.password = Devise.friendly_token[0,20]
     end
   end
-  
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
   has_many :player_one, :class_name => 'Match', :foreign_key => 'palyer1_id'
   has_many :player_two, :class_name => 'Match', :foreign_key => 'player2_id'

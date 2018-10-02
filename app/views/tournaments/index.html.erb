@@ -1,21 +1,27 @@
-<% if current_player.is_admin? %>
-<button type="button" class="btn btn-primary">Admin</button>
-<% end %>
-
-<h1>All tournois</h1>
-
-<ul id="tournaments">
-  <% @tournaments.each do |t| %>
-    <li>
-      <%= link_to t.title, tournament_path(t), class: 't_title' %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to "Create a New t", new_tournament_path, class: "new_t" %>
-
-<% if player_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_player_session_path, method: :delete) %>
-  </li>
-<% end %>
+<div class="page-header">
+  <h1>All Tournaments</h1>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <% i = 0 %>
+    <% @tournaments.each do |tournament| %>
+    <% i = i + 1 %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= link_to tournament.title, tournament_path(tournament)%>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <%= "Address: #{tournament.address}" %><br/>
+        <%= "Date: #{tournament.date}" %>
+      </div>
+    </div>
+    <% if i%2 == 0 %>
+  </div>
+  <div class="col-sm-4">
+    <% end %>
+    <% end %>
+  </div>
+</div>
+<a class="pull-right" href="<%= new_tournament_path %>"><button type="button" class="btn btn-sm btn-default">+</button></a>
