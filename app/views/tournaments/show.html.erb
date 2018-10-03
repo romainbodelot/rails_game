@@ -1,2 +1,12 @@
-<h1><%= @tournament.title %></h1>
-<%= link_to "<< Back to t List", tournaments_path %>
+<div class="page-header">
+  <h1><%= @tournament.title %></h1>
+</div>
+<p class="lead"><%= @tournament.address %></p>
+<p class="lead"><%= @tournament.date %></p>
+<p class="lead">Distance to travel : <%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]) %> miles</p>
+
+<a class="pull-right" href="<%= edit_tournament_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button></a>
+<a class="pull-right" href="<%= tournaments_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button></a>
+<%= link_to tournament_path(@tournament), :confirm => 'Are you sure?', :method => :delete do %>
+<%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-minus fa-2x" %>
+<% end %>

@@ -3,6 +3,7 @@ RailsGaame::Application.routes.draw do
   devise_for :models
   resources :players
   resources :tournaments
+  resources :games
 
   devise_scope :player do
     get '/players/auth/:provider/upgrade' => 'players/omniauth_callbacks#upgrade', as: :player_omniauth_upgrade

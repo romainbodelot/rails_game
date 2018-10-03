@@ -5,6 +5,11 @@ class TournamentsController < ApplicationController
 
   def index
     @tournaments = Tournament.all
+    if params[:search].present?
+      @tournaments = Tournament.near(params[:search], 50, :order => :distance)
+    else
+      @tournaments = Tournament.all
+    end
   end
 
   def show
@@ -20,5 +25,23 @@ class TournamentsController < ApplicationController
     @tournament.save
 
     redirect_to tournaments_path
+  end
+
+  def destroy
+    @tournament = Tournament.find(params[:id])
+    @tournament.destroy
+
+    redirect_to tournaments_path
+  end
+
+  def edit
+    @tournament = Tournament.find(params[:id])
+  end
+
+  def update
+    @tournament = Tournament.find(params[:id])
+    @tournament.update(tournament_params)
+
+    redirect_to tournament_path(@tournament)
   end
 end

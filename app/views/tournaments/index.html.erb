@@ -1,6 +1,12 @@
 <div class="page-header">
   <h1>All Tournaments</h1>
 </div>
+<p class="h4">Address Search</p>
+<%= form_tag tournaments_path, :method => :get do %>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search Near", :name => nil %>
+<% end %>
+<br/>
 <div class="row">
   <div class="col-sm-4">
     <% i = 0 %>
@@ -24,4 +30,6 @@
     <% end %>
   </div>
 </div>
-<a class="pull-right" href="<%= new_tournament_path %>"><button type="button" class="btn btn-sm btn-default">+</button></a>
+<a class="pull-right" href="<%= new_tournament_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "plus 2x" %></button></a>
+<br/><br/>
+<a class="pull-right" href="<%= new_game_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "plus 2x" %> <%= fa_icon "gamepad 2x" %></button></a>

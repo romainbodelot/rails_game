@@ -1,7 +1,9 @@
 class PlayersController < ApplicationController
   load_and_authorize_resource
+  include PlayersHelper
+
   def index
-    redirect_to "/tournaments"
+    redirect_to root_url
   end
 
   def create
@@ -15,4 +17,18 @@ class PlayersController < ApplicationController
     end
   end
 
+  def show
+    @player = Player.find(params[:id])
+  end
+
+  def edit
+    @player = Player.find(params[:id])
+  end
+
+  def update
+    @player = Player.find(params[:id])
+    @player.update_attribute(player_params)
+
+    redirect_to player_path(@player)
+  end
 end

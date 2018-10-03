@@ -15,8 +15,12 @@ class Player < ActiveRecord::Base
   end
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :address, :latitude, :longitude
   # attr_accessible :title, :body
   has_many :player_one, :class_name => 'Match', :foreign_key => 'palyer1_id'
   has_many :player_two, :class_name => 'Match', :foreign_key => 'player2_id'
+
+  geocoded_by :address
+  after_validation :geocode, :if => :address_changed?
+  reverse_geocoded_by :latitude, :longitude
 end

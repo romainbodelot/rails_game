@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20181002102136) do
+ActiveRecord::Schema.define(:version => 20181003100525) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20181002102136) do
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
     t.string   "role",                   :default => "default"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "players", ["email"], :name => "index_players_on_email", :unique => true
@@ -100,6 +102,8 @@ ActiveRecord::Schema.define(:version => 20181002102136) do
     t.integer  "players_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "tournaments", ["players_id"], :name => "index_tournaments_on_players_id"
