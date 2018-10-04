@@ -8,26 +8,28 @@
 <% end %>
 <br/>
 <div class="row">
-  <div class="col-sm-4">
-    <% i = 0 %>
+<div class="col-sm-4">
+  <% i = 0 %>
     <% @tournaments.each do |tournament| %>
-    <% i = i + 1 %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <%= link_to tournament.title, tournament_path(tournament)%>
-        </h3>
-      </div>
-      <div class="panel-body">
-        <%= "Address: #{tournament.address}" %><br/>
-        <%= "Date: #{tournament.date}" %>
-      </div>
+      <% i = i + 1 %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= link_to tournament.title, tournament_path(tournament)%>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= "Address: #{tournament.address}" %><br/>
+            <%= "Date: #{tournament.date}" %>
+          </div>
+        </div>
+        <% if i%2 == 0 %>
+        </div>
+        <div class="col-sm-4">
+        <% end %>
+      <% end %>
     </div>
-    <% if i%2 == 0 %>
   </div>
-  <div class="col-sm-4">
-    <% end %>
-    <% end %>
-  </div>
-</div>
-<a class="pull-right" href="<%= new_tournament_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "plus 2x" %></button></a>
+  <a class="pull-right" href="<%= new_tournament_path %>">
+    <button type="button" class="btn btn-sm btn-default"><%= fa_icon "plus 2x" %></button>
+  </a>

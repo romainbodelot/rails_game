@@ -11,28 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20181004090558) do
+ActiveRecord::Schema.define(:version => 20181004112151) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.binary   "picture"
-    t.integer  "players_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "games", ["players_id"], :name => "index_games_on_players_id"
-
   create_table "lists", :force => true do |t|
-    t.integer  "max_player"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "game_id"
     t.integer  "tournament_id"
+    t.integer  "player_id"
   end
 
   add_index "lists", ["game_id"], :name => "index_lists_on_game_id"
+  add_index "lists", ["player_id"], :name => "index_lists_on_player_id"
   add_index "lists", ["tournament_id"], :name => "index_lists_on_tournament_id"
 
   create_table "matches", :force => true do |t|
@@ -41,12 +39,9 @@ ActiveRecord::Schema.define(:version => 20181004090558) do
     t.boolean  "is_equal"
     t.integer  "player1_id"
     t.integer  "player2_id"
-    t.integer  "lists_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  add_index "matches", ["lists_id"], :name => "index_matches_on_lists_id"
 
   create_table "models", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -99,13 +94,11 @@ ActiveRecord::Schema.define(:version => 20181004090558) do
     t.string   "title"
     t.string   "address"
     t.date     "date"
-    t.integer  "players_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "max_player"
   end
-
-  add_index "tournaments", ["players_id"], :name => "index_tournaments_on_players_id"
 
 end

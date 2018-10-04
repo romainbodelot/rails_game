@@ -5,6 +5,9 @@
 <p class="lead"><%= @player.first_name %></p>
 <p class="lead"><%= @player.last_name %></p>
 <p class="lead"><%= @player.address %></p>
-
-<a class="pull-right" href="<%= edit_player_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button></a>
-<a class="pull-right" href="<%= tournaments_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button></a>
+<a class="pull-right" href="<%= edit_player_path %>">
+  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
+</a>
+<a class="pull-right" href="<%= tournaments_path %>">
+  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
+</a>

@@ -1,7 +1,6 @@
 class GamesController < ApplicationController
   load_and_authorize_resource
   include GamesHelper
-
   def index
     @games = Game.all
   end
@@ -17,14 +16,12 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     @game.save
-
     redirect_to games_path
   end
 
   def destroy
     @game = Game.find(params[:id])
     @game.destroy
-
     redirect_to games_path
   end
 
@@ -34,8 +31,7 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    @game.update(game_params)
-
+    @game.update_attributes(params[:game])
     redirect_to game_path(@game)
   end
 end

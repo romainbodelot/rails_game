@@ -1,15 +1,16 @@
-<h1>tournament game with <%= @game.name %></h1>
-
+<h1>tournament game with
+  <%= @game.name %></h1>
 <ul>
   <% @game.tournaments.each do |tournament| %>
     <li><%= link_to tournament.title, tournament_path(tournament) %></li>
   <% end %>
 </ul>
-
-
-
-<a class="pull-right" href="<%= edit_game_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button></a>
-<a class="pull-right" href="<%= games_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button></a>
+<a class="pull-right" href="<%= edit_game_path %>">
+  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
+</a>
+<a class="pull-right" href="<%= games_path %>">
+  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
+</a>
 <%= link_to game_path(@game), :confirm => 'Are you sure?', :method => :delete do %>
 <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-minus fa-2x" %>
 <% end %>

@@ -5,11 +5,32 @@
 <p class="lead"><%= @tournament.date %></p>
 <% @tournament.games.each do |game| %>
   <%= link_to game.name, game_path(game) %>
+  <%= form_for(@tournament) do |f| %>
+  <ul>
+    <% @tournament.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+  <p class="hidden">
+    <%= f.number_field :player_list, :value => current_player.id %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
 <% end %>
-<p class="lead">Distance to travel : <%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]) %> miles</p>
-
-<a class="pull-right" href="<%= edit_tournament_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button></a>
-<a class="pull-right" href="<%= tournaments_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button></a>
+<% end %>
+<% @tournament.players.each do |player| %>
+<%= link_to player.id, player_path(player) %>
+<% end %>
+<p class="lead">Distance to travel :
+<%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]).round %>
+miles</p>
+<a class="pull-right" href="<%= edit_tournament_path %>">
+<button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
+</a>
+<a class="pull-right" href="<%= tournaments_path %>">
+<button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
+</a>
 <%= link_to tournament_path(@tournament), :confirm => 'Are you sure?', :method => :delete do %>
 <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-minus fa-2x" %>
 <% end %>

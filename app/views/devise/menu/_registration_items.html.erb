@@ -1,9 +1,9 @@
 <% if player_signed_in? %>
   <li>
-  <%= link_to('Edit registration', edit_player_registration_path) %>
+    <%= link_to('Edit registration', edit_player_registration_path) %>
   </li>
 <% else %>
   <li>
-  <%= link_to('Register', new_player_registration_path)  %>
+    <%= link_to('Register', new_player_registration_path) %>
   </li>
 <% end %>

@@ -1,21 +1,18 @@
 <%= form_for(@game) do |f| %>
-  <ul>
+<ul>
   <% @game.errors.full_messages.each do |error| %>
     <li><%= error %></li>
   <% end %>
-  </ul>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p class="hidden">
-    <%= f.number_field :players_id, :value => current_player.id %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+</ul>
+<p>
+  <%= f.label :name %><br/>
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :description %><br/>
+  <%= f.text_area :description %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
 <% end %>
