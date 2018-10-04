@@ -3,7 +3,7 @@ class GamesController < ApplicationController
   include GamesHelper
 
   def index
-    redirect_to root_url
+    @games = Game.all
   end
 
   def show

@@ -1,5 +1,5 @@
 module GamesHelper
   def game_params
-    params.require(:game).permit(:name, :description, :players_id)
+    params.require(:game).permit(:name)
   end
 end

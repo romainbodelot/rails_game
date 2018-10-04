@@ -1,0 +1,6 @@
+<% @games.each do |game| %>
+<h3 class="panel-title">
+  <%= link_to game.name, game_path(game)%>
+</h3>
+<% end %>
+<a class="pull-right" href="<%= new_game_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "plus 2x" %> <%= fa_icon "gamepad 2x" %></button></a>

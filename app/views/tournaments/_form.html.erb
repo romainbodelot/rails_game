@@ -1,25 +1,29 @@
 <%= form_for(@tournament) do |f| %>
-  <ul>
+<ul>
   <% @tournament.errors.full_messages.each do |error| %>
-    <li><%= error %></li>
+  <li><%= error %></li>
   <% end %>
-  </ul>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :address %><br />
-    <%= f.text_area :address %>
-  </p>
-  <p>
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
-  </p>
-  <p class="hidden">
-    <%= f.number_field :players_id, :value => current_player.id %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+</ul>
+<p>
+  <%= f.label :title %><br />
+  <%= f.text_field :title %>
+</p>
+<p>
+  <%= f.label :address %><br />
+  <%= f.text_area :address %>
+</p>
+<p>
+  <%= f.label :date %><br />
+  <%= f.date_select :date %>
+</p>
+<p>
+  <%= f.label :game_list %><br />
+  <%= f.text_field :game_list %>
+</p>
+<p class="hidden">
+  <%= f.number_field :players_id, :value => current_player.id %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
 <% end %>

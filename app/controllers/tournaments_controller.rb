@@ -4,7 +4,6 @@ class TournamentsController < ApplicationController
   include TournamentsHelper
 
   def index
-    @tournaments = Tournament.all
     if params[:search].present?
       @tournaments = Tournament.near(params[:search], 50, :order => :distance)
     else

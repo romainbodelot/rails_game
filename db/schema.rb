@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20181003100525) do
+ActiveRecord::Schema.define(:version => 20181004090558) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -26,14 +26,14 @@ ActiveRecord::Schema.define(:version => 20181003100525) do
 
   create_table "lists", :force => true do |t|
     t.integer  "max_player"
-    t.integer  "tournaments_id"
-    t.integer  "games_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "game_id"
+    t.integer  "tournament_id"
   end
 
-  add_index "lists", ["games_id"], :name => "index_lists_on_games_id"
-  add_index "lists", ["tournaments_id"], :name => "index_lists_on_tournaments_id"
+  add_index "lists", ["game_id"], :name => "index_lists_on_game_id"
+  add_index "lists", ["tournament_id"], :name => "index_lists_on_tournament_id"
 
   create_table "matches", :force => true do |t|
     t.integer  "score"

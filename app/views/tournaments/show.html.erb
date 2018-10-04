@@ -3,6 +3,9 @@
 </div>
 <p class="lead"><%= @tournament.address %></p>
 <p class="lead"><%= @tournament.date %></p>
+<% @tournament.games.each do |game| %>
+  <%= link_to game.name, game_path(game) %>
+<% end %>
 <p class="lead">Distance to travel : <%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]) %> miles</p>
 
 <a class="pull-right" href="<%= edit_tournament_path %>"><button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button></a>
