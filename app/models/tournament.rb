@@ -1,5 +1,5 @@
 class Tournament < ActiveRecord::Base
-  attr_accessible :title, :address, :date, :players_id, :latitude, :longitude, :game_list, :player_list
+  attr_accessible :title, :max_player, :address, :date, :players_id, :latitude, :longitude, :game_list
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
   reverse_geocoded_by :latitude, :longitude

@@ -1,0 +1,30 @@
+<%= form_for @match, url: matchs_path do |f| %>
+<ul>
+  <% @match.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+</ul>
+<p>
+  <%= f.label :score %><br/>
+  <%= f.number_field :score %>
+</p>
+<p>
+  <%= f.label :is_equal %><br/>
+  <%= f.check_box :is_equal %>
+</p>
+<p>
+  <%= f.label :winner %><br/>
+  <%= f.number_field :winner %>
+</p>
+<p>
+  <%= f.label :player1_id %><br/>
+  <%= f.number_field :player2_id %>
+</p>
+<p>
+  <%= f.label :player2_id %><br/>
+  <%= f.number_field :player2_id %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
+<% end %>

@@ -1,5 +1,5 @@
 class List < ActiveRecord::Base
-  attr_accessible :max_player, :tournaments_id, :games_id, :game_list, :player_list
+  attr_accessible :tournament_id, :game_id, :player_id
   belongs_to :tournament
   belongs_to :game
   belongs_to :player

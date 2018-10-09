@@ -1,0 +1,22 @@
+<%= form_for(@list) do |f| %>
+<ul>
+  <% @list.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+</ul>
+<p>
+  <%= f.label :game_id %><br/>
+  <%= f.number_field :game_id %>
+</p>
+<p>
+  <%= f.label :tournament_id %><br/>
+  <%= f.number_field :tournament_id %>
+</p>
+<p>
+  <%= f.label :player_id %><br/>
+  <%= f.number_field :player_id %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
+<% end %>
