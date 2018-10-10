@@ -14,10 +14,16 @@
   <%= "/ #{@tournament.max_player} players" %>
 <br/>
   <% if a == @tournament.max_player %>
-  <%= link_to "generated match", generate_match_path(:rand1 => 18, :rand2 => 4) %>
+  <%= link_to "generated match", generate_match_path(:game_id => game.id, :tournament_id => @tournament.id) %>
   <% end %>
-
   <br/>
+  <% id_list = List.connection.select_value("SELECT id FROM lists WHERE game_id = #{game.id} AND player_id IS NOT NULL AND tournament_id = #{@tournament.id}") %>
+
+  <% id_match = Match.connection.select_values("SELECT id FROM matches WHERE winner IS NOT NULL AND list_id = #{id_list}") %>
+  match joué
+  <% id_match.each do |match| %>
+  <%= match %>
+  <% end %>
 <% end %>
 
 <p class="lead">Distance to travel :

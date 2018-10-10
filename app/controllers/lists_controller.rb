@@ -40,7 +40,11 @@ class ListsController < ApplicationController
     @list.player_id = params[:player_id]
     @list.tournament_id = params[:tournament_id]
     @list.game_id = params[:game_id]
-    @list.save
+    if List.where(:player_id => params[:player_id]).where(:game_id => params[:game_id]).where(:tournament_id => params[:tournament_id]).present?
+      @list.delete
+    else
+      @list.save
+    end
     redirect_to tournament_path(:id => params[:tournament_id])
   end
 end

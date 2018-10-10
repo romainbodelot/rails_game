@@ -4,8 +4,8 @@ class Player < ActiveRecord::Base
   after_validation :geocode, if: :address_changed?
   reverse_geocoded_by :latitude, :longitude
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook]
-  has_many :player_one, class_name: 'Match', foreign_key: 'palyer1_id'
-  has_many :player_two, class_name: 'Match', foreign_key: 'player2_id'
+  #has_many :player_one, class_name: 'Match', foreign_key: 'palyer1_id'
+  #has_many :player_two, class_name: 'Match', foreign_key: 'player2_id'
   has_many :lists
   has_many :tournaments, through: :lists
   def self.from_omniauth(auth)

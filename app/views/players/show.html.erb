@@ -1,6 +1,28 @@
 <div class="page-header">
   <h1>Your Profil</h1>
 </div>
+<br/><br/><br/>
+<%= "tournament effectué :" %><br/>
+<% id_tournaments = List.connection.select_values("SELECT tournament_id FROM lists WHERE player_id = #{@player.id}").uniq %>
+<% id_tournaments.each do |id_t| %>
+<% id_games = List.connection.select_values("SELECT game_id FROM lists WHERE player_id = #{@player.id} AND tournament_id = #{id_t}").uniq %>
+<%= Tournament.connection.select_value("SELECT title FROM tournaments WHERE id = #{id_t}") %>
+<br/>
+<% id_games.each do |id_g| %>
+<%= Game.connection.select_value("SELECT name FROM games WHERE id = #{id_g}") %>
+<br/>
+<% end %>
+<% end %>
+
+<br/><br/><br/>
+<%= "nb win"%>
+<%= Match.connection.select_values("SELECT winner FROM matches WHERE winner = #{@player.id}").size %>
+<%= "nb equal" %>
+<%= Match.connection.select_values("SELECT is_equal FROM matches WHERE (is_equal = 't') AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
+<%= "nb lose" %>
+<%= Match.connection.select_values("SELECT winner FROM matches WHERE (winner <> #{@player.id} ) AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
+
+
 <p class="lead"><%= @player.email %></p>
 <p class="lead"><%= @player.first_name %></p>
 <p class="lead"><%= @player.last_name %></p>

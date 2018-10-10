@@ -1,3 +1,16 @@
 <a class="pull-right" href="<%= new_match_path %>">
   <button type="button" class="btn btn-sm btn-default"><%= fa_icon "plus 2x" %></button>
 </a>
+<br/>
+<% @matchs.each do |match| %>
+num match
+<%= match.id%>
+<% if match.winner == nil %>
+terminé par equal entre
+<%= match.player1_id %>
+<%= match.player2_id %>
+<% else %>
+le gagnant est <%= match.winner %>
+<% end %>
+<br>
+<% end %>
