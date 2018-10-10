@@ -1,35 +1,31 @@
 <div class="page-header">
   <h1>Your Profil</h1>
 </div>
-<br/><br/><br/>
-<%= "tournament effectué :" %><br/>
-<% id_tournaments = List.connection.select_values("SELECT tournament_id FROM lists WHERE player_id = #{@player.id}").uniq %>
-<% id_tournaments.each do |id_t| %>
-<% id_games = List.connection.select_values("SELECT game_id FROM lists WHERE player_id = #{@player.id} AND tournament_id = #{id_t}").uniq %>
-<%= Tournament.connection.select_value("SELECT title FROM tournaments WHERE id = #{id_t}") %>
-<br/>
-<% id_games.each do |id_g| %>
-<%= Game.connection.select_value("SELECT name FROM games WHERE id = #{id_g}") %>
-<br/>
-<% end %>
-<% end %>
-
-<br/><br/><br/>
-<%= "nb win"%>
-<%= Match.connection.select_values("SELECT winner FROM matches WHERE winner = #{@player.id}").size %>
-<%= "nb equal" %>
-<%= Match.connection.select_values("SELECT is_equal FROM matches WHERE (is_equal = 't') AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
-<%= "nb lose" %>
-<%= Match.connection.select_values("SELECT winner FROM matches WHERE (winner <> #{@player.id} ) AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
-
-
 <p class="lead"><%= @player.email %></p>
 <p class="lead"><%= @player.first_name %></p>
 <p class="lead"><%= @player.last_name %></p>
 <p class="lead"><%= @player.address %></p>
-<a class="pull-right" href="<%= edit_player_path %>">
-  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
-</a>
-<a class="pull-right" href="<%= tournaments_path %>">
-  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
-</a>
+<p class="lead">Your Participations</p>
+<% id_tournaments = List.connection.select_values("SELECT tournament_id FROM lists WHERE player_id = #{@player.id}").uniq %>
+  <% id_tournaments.each do |id_t| %>
+    <% id_games = List.connection.select_values("SELECT game_id FROM lists WHERE player_id = #{@player.id} AND tournament_id = #{id_t}").uniq %>
+      <%= Tournament.connection.select_value("SELECT title FROM tournaments WHERE id = #{id_t}") %>
+      <br/>
+      <% id_games.each do |id_g| %>
+        <li><%= Game.connection.select_value("SELECT name FROM games WHERE id = #{id_g}") %></li>
+      <% end %>
+    <% end %>
+    <br/>
+    <p class="lead">Number of wins :</p>
+    <%= Match.connection.select_values("SELECT winner FROM matches WHERE winner = #{@player.id}").size %>
+    <p class="lead">Number of defeats :</p>
+    <%= Match.connection.select_values("SELECT is_equal FROM matches WHERE (is_equal = 't') AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
+    <p class="lead">Number of equals :</p>
+    <%= Match.connection.select_values("SELECT winner FROM matches WHERE (winner <> #{@player.id} ) AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
+    <br/>
+    <a class="pull-right" href="<%= edit_player_path %>">
+      <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
+    </a>
+    <a class="pull-right" href="<%= tournaments_path %>">
+      <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
+    </a>

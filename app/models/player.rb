@@ -1,5 +1,5 @@
 class Player < ActiveRecord::Base
-  attr_accessible :id, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :address, :latitude, :longitude, :game_list, :player_list
+  attr_accessible :id, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :address, :latitude, :longitude, :game_list, :player_list, :score
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
   reverse_geocoded_by :latitude, :longitude

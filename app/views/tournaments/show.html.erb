@@ -1,41 +1,57 @@
 <div class="page-header">
   <h1><%= @tournament.title %></h1>
 </div>
-
-<p class="lead"><%= @tournament.address %></p>
-<p class="lead"><%= @tournament.date %></p>
-
+<p class="lead">City :
+  <%= @tournament.address %>
+</p>
+<p class="lead">Date :
+  <%= @tournament.date %>
+</p>
 <% @tournament.games.uniq.each do |game| %>
-
-  <%= link_to game.name, game_path(game) %>
-<br/>
-<%= link_to "sub", sub_list_path(:player_id => current_player.id, :tournament_id => @tournament.id, :game_id => game.id) %>
-  <%= a = List.find_by_sql("SELECT player_id FROM lists WHERE game_id = #{game.id} AND player_id IS NOT NULL AND tournament_id = #{@tournament.id}").size %>
-  <%= "/ #{@tournament.max_player} players" %>
-<br/>
-  <% if a == @tournament.max_player %>
-  <%= link_to "generated match", generate_match_path(:game_id => game.id, :tournament_id => @tournament.id) %>
-  <% end %>
-  <br/>
-  <% id_list = List.connection.select_value("SELECT id FROM lists WHERE game_id = #{game.id} AND player_id IS NOT NULL AND tournament_id = #{@tournament.id}") %>
-
-  <% id_match = Match.connection.select_values("SELECT id FROM matches WHERE winner IS NOT NULL AND list_id = #{id_list}") %>
-  match joué
-  <% id_match.each do |match| %>
-  <%= match %>
-  <% end %>
-<% end %>
-
-<p class="lead">Distance to travel :
-  <%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]).round %>
-  miles</p>
-
-<a class="pull-right" href="<%= edit_tournament_path %>">
-  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
-</a>
-<a class="pull-right" href="<%= tournaments_path %>">
-  <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
-</a>
-<%= link_to tournament_path(@tournament), :confirm => 'Are you sure?', :method => :delete do %>
-<%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-minus fa-2x" %>
-<% end %>
+  <ul class="lead"><%= link_to game.name, game_path(game) %>
+    <% a = List.find_by_sql("SELECT player_id FROM lists WHERE game_id = #{game.id} AND player_id IS NOT NULL AND tournament_id = #{@tournament.id}").size %>
+      <li class="h4"><%= "#{a} / #{@tournament.max_player} players" %></li>
+      <li class="h4"><%= link_to "Registration", sub_list_path(:player_id => current_player.id, :tournament_id => @tournament.id, :game_id => game.id) %></li>
+    </ul>
+    <% id_list = List.connection.select_value("SELECT id FROM lists WHERE game_id = #{game.id} AND player_id IS NOT NULL AND tournament_id = #{@tournament.id}") %>
+      <% id_winner = Match.connection.select_values("SELECT winner FROM matches WHERE winner IS NOT NULL AND list_id = #{id_list}") %>
+        <p class="lead">Matchs completed</p>
+        <% id_winner.each do |id| %>
+          <ul class="lead">
+            <li class="h4">
+              <% name_winner = Player.connection.select_value("SELECT email FROM players WHERE id = #{id}") %>
+                <% if name_winner == nil %>
+                  Match
+                  <% id %>
+                    : Equal
+                  <% else %>
+                    Match
+                    <% id %>
+                      : Winner =>
+                      <%= name_winner %>
+                    <% end %>
+                  </li>
+                </ul>
+              <% end %>
+              <% if a == @tournament.max_player %>
+                <%= link_to generate_match_path(:game_id => game.id, :tournament_id => @tournament.id) do %>
+                <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-refresh" %>
+              <% end %>
+            <% end %>
+            <br/>
+          <% end %>
+          <br/>
+          <p class="lead">Distance to travel :
+            <%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]).round %>
+            miles
+          </p>
+          <br/>
+          <a class="pull-right" href="<%= edit_tournament_path %>">
+            <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
+          </a>
+          <a class="pull-right" href="<%= tournaments_path %>">
+            <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
+          </a>
+          <%= link_to tournament_path(@tournament), :confirm => 'Are you sure?', :method => :delete do %>
+          <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-minus fa-2x" %>
+        <% end %>

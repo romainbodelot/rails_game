@@ -1,9 +1,14 @@
-<% all_name = Player.connection.select_values("SELECT email FROM players ORDER BY score DESC") %>
-<% all_score = Player.connection.select_values("SELECT score FROM players ORDER BY score DESC") %>
-<% i = 0 %>
-<% all_name.each do |name| %>
-<%= name %>
-<%= all_score.at(i) %>
-<br/>
-<% i = i + 1 %>
-<% end %>
+<div class="page-header">
+  <h1>General Ranking</h1>
+</div>
+<div class="row">
+  <% all_name = Player.connection.select_values("SELECT email FROM players ORDER BY score DESC") %>
+    <% all_score = Player.connection.select_values("SELECT score FROM players ORDER BY score DESC") %>
+      <% i = 0 %>
+        <% all_name.each do |name| %>
+          <p class="lead">
+            <%= name %>
+            <%= "with #{all_score.at(i)}" %>
+          </p>
+          <br/>
+          <% i = i + 1 %><% end %>

@@ -1,10 +1,19 @@
-<h1>tournament game with
-  <%= @game.name %></h1>
-<ul>
-  <% @game.tournaments.each do |tournament| %>
-    <li><%= link_to tournament.title, tournament_path(tournament) %></li>
+<div class="page-header">
+  <h1><%= @game.name %></h1>
+</div>
+<p class="lead">
+  Description :
+  <%= @game.description %>
+</p>
+<ul class="lead">
+  Tournament game with
+  <%= @game.name %>
+  :
+  <% @game.tournaments.uniq.each do |tournament| %>
+    <li class="h4"><%= link_to tournament.title, tournament_path(tournament) %></li>
   <% end %>
 </ul>
+<br/>
 <a class="pull-right" href="<%= edit_game_path %>">
   <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
 </a>

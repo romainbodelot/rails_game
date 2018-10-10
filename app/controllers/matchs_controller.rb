@@ -45,17 +45,22 @@ class MatchsController < ApplicationController
       if i == 1
         @match = Match.new
         @match.player1_id = Player.find(element).id
+        score_1 = Player.find(element)
       end
       if i == 2
         equal = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false].sample
         @match.player2_id = Player.find(element).id
+        score_2 = Player.find(element)
         @match.list_id = list_id
         @match.is_equal = equal
         if equal == true
           @match.save
+          score_1.update_attributes(:score => score_1.score + 1)
+          score_2.update_attributes(:score => score_2.score + 1)
         else
           @match.winner = Player.find(element).id
           @match.save
+          score_2.update_attributes(:score => score_2.score + 3)
         end
         i = 1
       end
