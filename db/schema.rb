@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20181010101139) do
+ActiveRecord::Schema.define(:version => 20181010144020) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -99,10 +99,10 @@ ActiveRecord::Schema.define(:version => 20181010101139) do
     t.string   "title"
     t.string   "address"
     t.date     "date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.float    "latitude"
-    t.float    "longitude"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.float    "latitude",   :default => 0.0
+    t.float    "longitude",  :default => 0.0
     t.integer  "max_player"
   end
 

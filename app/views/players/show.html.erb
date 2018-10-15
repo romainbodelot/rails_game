@@ -6,22 +6,23 @@
 <p class="lead"><%= @player.last_name %></p>
 <p class="lead"><%= @player.address %></p>
 <p class="lead">Your Participations</p>
-<% id_tournaments = List.connection.select_values("SELECT tournament_id FROM lists WHERE player_id = #{@player.id}").uniq %>
+
+<% id_tournaments = @player.lists.pluck(:tournament_id).uniq %>
   <% id_tournaments.each do |id_t| %>
-    <% id_games = List.connection.select_values("SELECT game_id FROM lists WHERE player_id = #{@player.id} AND tournament_id = #{id_t}").uniq %>
-      <%= Tournament.connection.select_value("SELECT title FROM tournaments WHERE id = #{id_t}") %>
+    <% id_games = List.where(:player_id => @player.id, :tournament_id => id_t).pluck(:game_id) %>
+      <%= Tournament.find(id_t).title %>
       <br/>
       <% id_games.each do |id_g| %>
-        <li><%= Game.connection.select_value("SELECT name FROM games WHERE id = #{id_g}") %></li>
+        <li><%= Game.find(id_g).name %></li>
       <% end %>
     <% end %>
     <br/>
     <p class="lead">Number of wins :</p>
-    <%= Match.connection.select_values("SELECT winner FROM matches WHERE winner = #{@player.id}").size %>
+    <%= Match.where(:winner => @player.id).size %>
     <p class="lead">Number of defeats :</p>
-    <%= Match.connection.select_values("SELECT is_equal FROM matches WHERE (is_equal = 't') AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
+    <%= Match.where(:player1_id => @player.id).where('winner <> ?', @player.id).size + Match.where(:player2_id => @player.id).where('winner <> ?', @player.id).size %>
     <p class="lead">Number of equals :</p>
-    <%= Match.connection.select_values("SELECT winner FROM matches WHERE (winner <> #{@player.id} ) AND (player1_id = #{@player.id} OR player2_id = #{@player.id})").size %>
+    <%= Match.where(:player1_id => @player.id).where(:is_equal => true).size + Match.where(:player2_id => @player.id).where(:is_equal => true).size %>
     <br/>
     <a class="pull-right" href="<%= edit_player_path %>">
       <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>

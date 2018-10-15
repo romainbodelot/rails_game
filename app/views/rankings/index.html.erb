@@ -2,8 +2,8 @@
   <h1>General Ranking</h1>
 </div>
 <div class="row">
-  <% all_name = Player.connection.select_values("SELECT email FROM players ORDER BY score DESC") %>
-    <% all_score = Player.connection.select_values("SELECT score FROM players ORDER BY score DESC") %>
+  <% all_name = Player.order('score DESC').pluck(:email) %>
+    <% all_score = Player.order('score DESC').pluck(:score) %>
       <% i = 0 %>
         <% all_name.each do |name| %>
           <p class="lead">

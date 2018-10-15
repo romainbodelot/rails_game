@@ -1,6 +1,7 @@
 class RankingsController < ApplicationController
   # GET /rankings
   # GET /rankings.json
+  load_and_authorize_resource
   def index
     @rankings = Ranking.all
 

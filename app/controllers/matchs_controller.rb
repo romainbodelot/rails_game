@@ -38,8 +38,7 @@ class MatchsController < ApplicationController
   def generate
     t_id = params[:tournament_id]
     g_id = params[:game_id]
-    array_player = List.connection.select_values("SELECT player_id FROM lists WHERE game_id = #{g_id} AND player_id IS NOT NULL AND tournament_id = #{t_id}")
-    list_id = List.connection.select_value("SELECT id FROM lists WHERE game_id = #{g_id} AND player_id IS NOT NULL AND tournament_id = #{t_id}")
+    array_player = List.where(:game_id => g_id, :tournament_id => t_id).where('player_id IS NOT NULL').pluck(:player_id)
     i = 1
     array_player.shuffle.each do |element|
       if i == 1
@@ -51,21 +50,21 @@ class MatchsController < ApplicationController
         equal = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false].sample
         @match.player2_id = Player.find(element).id
         score_2 = Player.find(element)
-        @match.list_id = list_id
-        @match.is_equal = equal
+        l_id = List.where(:game_id => g_id, :tournament_id => t_id).pluck(:id)
+        @match.list_id = l_id.at(0)
         if equal == true
           @match.save
-          score_1.update_attributes(:score => score_1.score + 1)
-          score_2.update_attributes(:score => score_2.score + 1)
+          score_1.update_attributes(score: score_1.score + 1)
+          score_2.update_attributes(score: score_2.score + 1)
         else
           @match.winner = Player.find(element).id
           @match.save
-          score_2.update_attributes(:score => score_2.score + 3)
+          score_2.update_attributes(score: score_2.score + 3)
         end
-        i = 1
+        i = i - 2
       end
-      i = 2
+      i = i + 1
     end
-    redirect_to matchs_path
+    redirect_to tournament_path(t_id)
   end
 end
