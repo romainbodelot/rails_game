@@ -1,5 +1,6 @@
 class Ability
   include CanCan::Ability
+
   def initialize(player)
     player ||= Player.new
     can :read, :all

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>RailsGaame</title>
     <%= stylesheet_link_tag "application", :media => "all" %>
@@ -7,9 +8,11 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
+
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
+
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -19,7 +22,9 @@
           </button>
           <a class="navbar-brand" href="<%= root_url %>">Rails Game</a>
         </div>
+
         <div id="navbar" class="navbar-collapse collapse">
+
           <ul class="nav navbar-nav">
             <li>
               <a href="<%= tournaments_path %>">Tournaments</a>
@@ -30,6 +35,7 @@
             <li>
               <a href="<%= rankings_path %>">Rankings</a>
             </li>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign
                 <span class="caret"></span></a>
@@ -46,11 +52,15 @@
                   </ul>
                 </li>
               </ul>
+
             </div>
           </div>
         </nav>
+
         <div class="container theme-showcase" role="main">
           <%= yield %>
         </div>
+
       </body>
+
     </html>

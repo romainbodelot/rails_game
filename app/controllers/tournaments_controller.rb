@@ -2,6 +2,7 @@ class TournamentsController < ApplicationController
   before_filter :authenticate_player!
   load_and_authorize_resource
   include TournamentsHelper
+
   def index
     if params[:search].present?
       @tournaments = Tournament.near(params[:search], 50, order: :distance)

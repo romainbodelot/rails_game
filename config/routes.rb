@@ -1,9 +1,8 @@
 RailsGaame::Application.routes.draw do
-  resources :rankings
-
-
   devise_for :players, controllers: { omniauth_callbacks: 'players/omniauth_callbacks' }
   devise_for :models
+
+  resources :rankings
   resources :players
   resources :tournaments
   resources :games

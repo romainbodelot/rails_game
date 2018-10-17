@@ -1,6 +1,7 @@
 class MatchsController < ApplicationController
   load_and_authorize_resource
   include MatchsHelper
+
   def index
     @matchs = Match.all
   end
@@ -38,7 +39,7 @@ class MatchsController < ApplicationController
   def generate
     t_id = params[:tournament_id]
     g_id = params[:game_id]
-    array_player = List.where(:game_id => g_id, :tournament_id => t_id).where('player_id IS NOT NULL').pluck(:player_id)
+    array_player = List.where(game_id: g_id, tournament_id: t_id).where('player_id IS NOT NULL').pluck(:player_id)
     i = 1
     array_player.shuffle.each do |element|
       if i == 1
@@ -50,7 +51,7 @@ class MatchsController < ApplicationController
         equal = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false].sample
         @match.player2_id = Player.find(element).id
         score_2 = Player.find(element)
-        l_id = List.where(:game_id => g_id, :tournament_id => t_id).pluck(:id)
+        l_id = List.where(game_id: g_id, tournament_id: t_id).pluck(:id)
         @match.list_id = l_id.at(0)
         if equal == true
           @match.save
@@ -61,9 +62,9 @@ class MatchsController < ApplicationController
           @match.save
           score_2.update_attributes(score: score_2.score + 3)
         end
-        i = i - 2
+        i -= 2
       end
-      i = i + 1
+      i += 1
     end
     redirect_to tournament_path(t_id)
   end

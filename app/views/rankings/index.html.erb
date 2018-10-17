@@ -1,14 +1,14 @@
 <div class="page-header">
   <h1>General Ranking</h1>
 </div>
-<div class="row">
-  <% all_name = Player.order('score DESC').pluck(:email) %>
-    <% all_score = Player.order('score DESC').pluck(:score) %>
-      <% i = 0 %>
-        <% all_name.each do |name| %>
-          <p class="lead">
-            <%= name %>
-            <%= "with #{all_score.at(i)}" %>
-          </p>
-          <br/>
-          <% i = i + 1 %><% end %>
+
+<% all_name = Player.order('score DESC').pluck(:email) %>
+  <% all_score = Player.order('score DESC').pluck(:score) %>
+    <% i = 0 %>
+      <% all_name.each do |name| %>
+        <p class="lead">
+          <%= name %>
+          <%= "with #{all_score.at(i)}" %>
+        </p>
+        <br/>
+        <% i = i + 1 %><% end %>

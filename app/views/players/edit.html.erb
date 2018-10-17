@@ -6,17 +6,18 @@
 </ul>
 <p>
   <%= f.label :first_name %><br/>
-  <%= f.text_area :first_name, size: "27x1" %>
+  <%= f.text_area :first_name, size: "27x1", :required => 'required', :class => "alphanumeric" %>
 </p>
 <p>
   <%= f.label :last_name %><br/>
-  <%= f.text_area :last_name, size: "27x1" %>
+  <%= f.text_area :last_name, size: "27x1", :required => 'required', :class => "alphanumeric" %>
 </p>
 <p>
   <%= f.label :address %><br/>
-  <%= f.text_area :address, size: "27x1" %>
+  <%= f.text_area :address, size: "27x1", :required => 'required', :class => "alphanumeric" %>
 </p>
 <p>
   <%= f.submit %>
 </p>
 <% end %>
+<%= javascript_include_tag( 'control' ) %>

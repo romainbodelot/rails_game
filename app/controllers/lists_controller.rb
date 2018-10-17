@@ -1,6 +1,8 @@
 class ListsController < ApplicationController
   load_and_authorize_resource
   include ListsHelper
+  respond_to :html, :js
+
   def index
     redirect_to root_url
   end
@@ -40,11 +42,15 @@ class ListsController < ApplicationController
     @list.player_id = params[:player_id]
     @list.tournament_id = params[:tournament_id]
     @list.game_id = params[:game_id]
-    if List.where(:player_id => params[:player_id]).where(:game_id => params[:game_id]).where(:tournament_id => params[:tournament_id]).present?
+    if List.where(player_id: params[:player_id]).where(game_id: params[:game_id]).where(tournament_id: params[:tournament_id]).present?
       @list.delete
     else
       @list.save
     end
-    redirect_to tournament_path(:id => params[:tournament_id])
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 end

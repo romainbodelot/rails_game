@@ -6,25 +6,26 @@
 </ul>
 <p>
   <%= f.label :title %><br/>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, :required => 'required', :class => "alphanumeric" %>
 </p>
 <p>
   <%= f.label :address %><br/>
-  <%= f.text_area :address %>
+  <%= f.text_field :address, :required => 'required', :class => "alphanumeric" %>
 </p>
 <p>
   <%= f.label :date %><br/>
-  <%= f.date_select :date %>
+  <%= f.date_select :date, :required => 'required' %>
 </p>
 <p>
   <%= f.label :game_list %><br/>
-  <%= f.text_field :game_list %>
+  <%= f.text_field :game_list, :required => 'required', :class => "lowercase" %>
 </p>
 <p>
   <%= f.label :max_player %><br/>
-  <%= f.number_field :max_player %>
+  <%= f.number_field :max_player, step: 2, :required => 'required', :class => "nothing" %>
 </p>
 <p>
   <%= f.submit %>
 </p>
 <% end %>
+<%= javascript_include_tag( 'control' ) %>

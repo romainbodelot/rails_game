@@ -1,57 +1,92 @@
 <div class="page-header">
   <h1><%= @tournament.title %></h1>
 </div>
+
 <p class="lead">City :
   <%= @tournament.address %>
 </p>
 <p class="lead">Date :
   <%= @tournament.date %>
 </p>
+
 <% @tournament.games.uniq.each do |game| %>
-  <ul class="lead"><%= link_to game.name, game_path(game) %>
-    <% a = List.where(:game_id => game.id, :tournament_id => @tournament.id).where('player_id IS NOT NULL').size %>
-      <li class="h4"><%= "#{a} / #{@tournament.max_player} players" %></li>
-      <li class="h4"><%= link_to "Registration", sub_list_path(:player_id => current_player.id, :tournament_id => @tournament.id, :game_id => game.id), remote: true %></li>
-    </ul>
-    <% id_list = List.where(:game_id => game.id, :tournament_id => @tournament.id).pluck(:id) %>
-      <% id_winner = Match.where(:list_id => id_list).pluck(:winner) %>
-        <p class="lead">Matchs completed</p>
-        <% id_winner.each do |id| %>
-          <ul class="lead">
-            <li class="h4">
-              <% name_winner = Player.where(:id => id).pluck(:email) %>
-                <% if name_winner == nil %>
-                  Match
-                  <% id %>
-                    : Equal
+
+  <div id="sub_player">
+    <ul class="lead"><%= link_to game.name, game_path(game) %>
+      <% a = List.where(:game_id => game.id, :tournament_id => @tournament.id).where('player_id IS NOT NULL').size %>
+        <li class="h4" id="maxplayer"><%= "#{a} / #{@tournament.max_player} players" %></li>
+        <li class="h4"><%= link_to "Registration", sub_list_path(:player_id => current_player.id, :tournament_id => @tournament.id, :game_id => game.id), remote: true %></li>
+      </ul>
+      <div/>
+
+      <br/>
+
+      <% id_list = List.where(:game_id => game.id, :tournament_id => @tournament.id).pluck(:id) %>
+        <% id_match = Match.where(:list_id => id_list) %>
+
+          <p class="lead">Matchs completed</p>
+
+          <br/>
+
+          <% id_match.each do |match| %>
+            <% name_winner = Player.where(:id => match.winner).pluck(:email) %>
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th><%= Player.where(:id => match.player1_id).pluck(:email).at(0) %></th>
+                    <th>VS</th>
+                    <th><%= Player.where(:id => match.player2_id).pluck(:email).at(0) %></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <% if name_winner == nil %>
+                      <td>+1</td>
+                      <td>Equal</td>
+                      <td>+1</td>
+                    </tr>
                   <% else %>
-                    Match
-                    <% id %>
-                      : Winner =>
-                      <%= name_winner.at(0) %>
-                    <% end %>
-                  </li>
-                </ul>
-              <% end %>
-              <% if a == @tournament.max_player %>
-                <%= link_to generate_match_path(:game_id => game.id, :tournament_id => @tournament.id) do %>
-                <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-refresh" %>
-              <% end %>
-            <% end %>
+                    <td>LOSE +0</td>
+                    <td></td>
+                    <td>WIN +3</td>
+                  </tr>
+                <% end %>
+
+              </tbody>
+            </table>
+
             <br/>
+
           <% end %>
-          <br/>
-          <p class="lead">Distance to travel :
-            <%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]).round %>
-            miles
-          </p>
-          <br/>
-          <a class="pull-right" href="<%= edit_tournament_path %>">
-            <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
-          </a>
-          <a class="pull-right" href="<%= tournaments_path %>">
-            <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
-          </a>
-          <%= link_to tournament_path(@tournament), :confirm => 'Are you sure?', :method => :delete do %>
-          <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-minus fa-2x" %>
+
+          <% if a == @tournament.max_player %>
+            <%= link_to generate_match_path(:game_id => game.id, :tournament_id => @tournament.id) do %>
+            <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-refresh" %>
+          <% end %>
         <% end %>
+
+        <br/>
+
+      <% end %>
+
+      <br/>
+      <p class="lead">Distance to travel :
+        <%= Geocoder::Calculations.distance_between([@tournament.latitude,@tournament.longitude], [current_player.latitude,current_player.longitude]).round %>
+        miles
+      </p>
+
+      <br/>
+
+      <a class="pull-right" href="<%= edit_tournament_path %>">
+        <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
+      </a>
+
+      <a class="pull-right" href="<%= tournaments_path %>">
+        <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
+      </a>
+
+      <%= link_to tournament_path(@tournament), :confirm => 'Are you sure?', :method => :delete do %>
+      <%= content_tag :button, "", :class => "btn btn-sm btn-default pull-right fa fa-minus fa-2x" %>
+    <% end %>

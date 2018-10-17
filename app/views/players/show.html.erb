@@ -1,10 +1,12 @@
 <div class="page-header">
   <h1>Your Profil</h1>
 </div>
+
 <p class="lead"><%= @player.email %></p>
 <p class="lead"><%= @player.first_name %></p>
 <p class="lead"><%= @player.last_name %></p>
 <p class="lead"><%= @player.address %></p>
+
 <p class="lead">Your Participations</p>
 
 <% id_tournaments = @player.lists.pluck(:tournament_id).uniq %>
@@ -16,17 +18,24 @@
         <li><%= Game.find(id_g).name %></li>
       <% end %>
     <% end %>
+
     <br/>
+
     <p class="lead">Number of wins :</p>
     <%= Match.where(:winner => @player.id).size %>
+
     <p class="lead">Number of defeats :</p>
     <%= Match.where(:player1_id => @player.id).where('winner <> ?', @player.id).size + Match.where(:player2_id => @player.id).where('winner <> ?', @player.id).size %>
+
     <p class="lead">Number of equals :</p>
     <%= Match.where(:player1_id => @player.id).where(:is_equal => true).size + Match.where(:player2_id => @player.id).where(:is_equal => true).size %>
+
     <br/>
+
     <a class="pull-right" href="<%= edit_player_path %>">
       <button type="button" class="btn btn-sm btn-default"><%= fa_icon "edit 2x" %></button>
     </a>
+
     <a class="pull-right" href="<%= tournaments_path %>">
       <button type="button" class="btn btn-sm btn-default"><%= fa_icon "reply-all 2x" %></button>
     </a>
