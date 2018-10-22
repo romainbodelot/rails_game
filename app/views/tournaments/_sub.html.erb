@@ -1,0 +1,26 @@
+<% @id_match.each do |match| %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= Player.where(:id => match.player1_id).pluck(:email).at(0) %></th>
+        <th>VS</th>
+        <th><%= Player.where(:id => match.player2_id).pluck(:email).at(0) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% if Player.where(:id => match.winner).pluck(:email) == nil %>
+          <td>+1</td>
+          <td>Equal</td>
+          <td>+1</td>
+        </tr>
+      <% else %>
+        <td>LOSE +0</td>
+        <td></td>
+        <td>WIN +3</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+<% end %>

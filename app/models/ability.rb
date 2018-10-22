@@ -4,7 +4,7 @@ class Ability
   def initialize(player)
     player ||= Player.new
     can :read, :all
-    can :sub, List
+    can :sub, Tournament
     can :manage, Player
     can :manage, :all if player.role == 'admin'
   end

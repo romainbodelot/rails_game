@@ -1,0 +1,1 @@
+$('#rankid').html('<% @id_player.uniq.each do |id| %><p class="lead"><%= Player.where(:id => id).order("score DESC").pluck(:email).at(0) %> with <%= Player.where(:id => id).order("score DESC").pluck(:score).at(0) %></p><br/><% end %>');

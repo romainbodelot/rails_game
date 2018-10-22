@@ -22,6 +22,16 @@ class RankingsController < ApplicationController
     end
   end
 
+  def choose
+    @id_tournament = params[:tournament_id]
+    @id_player = List.where(:tournament_id => @id_tournament).where('player_id IS NOT NULL').pluck(:player_id)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   # GET /rankings/new
   # GET /rankings/new.json
   def new
