@@ -185,5 +185,8 @@ DEPENDENCIES
   strong_parameters
   uglifier (>= 1.0.3)
 
+RUBY VERSION
+   ruby 2.1.9p490
+
 BUNDLED WITH
    1.17.0.pre.1

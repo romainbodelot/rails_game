@@ -7,8 +7,8 @@ gem 'rails', '3.2.22.2'
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
-gem 'rails_12factor'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -60,3 +60,5 @@ gem "font-awesome-rails"
 
 # To use debugger
 # gem 'debugger'
+
+ruby '2.1.9'
