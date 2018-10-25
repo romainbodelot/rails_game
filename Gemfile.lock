@@ -94,6 +94,7 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    pg (0.18.1-x64-mingw32)
     polyglot (0.3.5)
     rack (1.4.7)
     rack-cache (1.8.0)
@@ -110,6 +111,11 @@ GEM
       activesupport (= 3.2.22.2)
       bundler (~> 1.0)
       railties (= 3.2.22.2)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (3.2.22.2)
       actionpack (= 3.2.22.2)
       activesupport (= 3.2.22.2)
@@ -173,7 +179,9 @@ DEPENDENCIES
   net_http_ssl_fix
   omniauth
   omniauth-facebook
+  pg (= 0.18.1)
   rails (= 3.2.22.2)
+  rails_12factor
   sass-rails (~> 3.2.3)
   sqlite3
   strong_parameters
