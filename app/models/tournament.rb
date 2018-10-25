@@ -6,6 +6,7 @@ class Tournament < ActiveRecord::Base
   has_many :lists
   has_many :games, through: :lists
   has_many :players, through: :lists
+  serialize :note, Array
   def game_list
     games.collect(&:name).join(', ')
   end

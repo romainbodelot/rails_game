@@ -15,6 +15,23 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
   end
 
+  def note
+    @note_t = params[:note_t].to_i
+    @tournament = Tournament.find(params[:id_t])
+    @moy = 0
+    @tournament.note << @note_t
+    @tournament.save
+    @tournament.note.each do |number|
+      @moy += number
+    end
+    @t_note = Float(@moy.to_f / @tournament.note.size.to_f).round(2)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   def new
     @tournament = Tournament.new
   end
@@ -22,6 +39,15 @@ class TournamentsController < ApplicationController
   def create
     @tournament = Tournament.new(tournament_params)
     @tournament.save
+    all = Player.all
+    all.each do |all|
+      @notif = Notification.new
+      @notif.actor_id = all.id
+      @notif.action = 'Tournament create'
+      @notif.notifiable_id = @tournament.id
+      @notif.notifiable_type = 'tournament'
+      @notif.save
+    end
     redirect_to tournaments_path
   end
 
@@ -43,13 +69,14 @@ class TournamentsController < ApplicationController
 
   def generate
     @game = Game.find(params[:game_id])
-    @id_list = List.where(:game_id => params[:game_id], :tournament_id => params[:tournament_id]).pluck(:id)
-    @id_match = Match.where(:list_id => @id_list)
+    @id_list = List.where(game_id: params[:game_id], tournament_id: params[:tournament_id]).pluck(:id)
+    @id_match = Match.where(list_id: @id_list)
     t_id = params[:tournament_id]
     g_id = params[:game_id]
     array_player = List.where(game_id: g_id, tournament_id: t_id).where('player_id IS NOT NULL').pluck(:player_id)
     i = 1
     array_player.shuffle.each do |element|
+      PlayerMailer.email_match(Player.find(element)).deliver
       if i == 1
         @match = Match.new
         @match.player1_id = Player.find(element).id
@@ -93,6 +120,7 @@ class TournamentsController < ApplicationController
     else
       @a = List.where(game_id: params[:game_id], tournament_id: params[:tournament_id]).where('player_id IS NOT NULL').size + 1
       list.save
+      PlayerMailer.email_sub(Player.find(params[:player_id])).deliver
     end
 
     respond_to do |format|

@@ -1,0 +1,4 @@
+<% @notifications.each do |notif| %>
+<%= link_to notif.action, tournament_path(notif.notifiable_id) %>
+<br/>
+<% end %>

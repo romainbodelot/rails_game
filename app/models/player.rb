@@ -8,6 +8,7 @@ class Player < ActiveRecord::Base
   # has_many :player_two, class_name: 'Match', foreign_key: 'player2_id'
   has_many :lists
   has_many :tournaments, through: :lists
+  has_many :notifications, :as => :notifiable
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |player|

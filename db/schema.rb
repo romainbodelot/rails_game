@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20181010144020) do
+ActiveRecord::Schema.define(:version => 20181024080627) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(:version => 20181010144020) do
   add_index "models", ["email"], :name => "index_models_on_email", :unique => true
   add_index "models", ["reset_password_token"], :name => "index_models_on_reset_password_token", :unique => true
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "recipient_id"
+    t.integer  "actor_id"
+    t.datetime "read_at"
+    t.string   "action"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "players", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -104,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20181010144020) do
     t.float    "latitude",   :default => 0.0
     t.float    "longitude",  :default => 0.0
     t.integer  "max_player"
+    t.text     "note"
   end
 
 end

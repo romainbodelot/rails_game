@@ -22,5 +22,5 @@
         <%= select_tag :tournament_id, options_for_select(Tournament.pluck(:id)) %>
         <%= submit_tag("Choose") %>
       <% end %>
-
+      <br/>
       <span id="rankid"></span>

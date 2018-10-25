@@ -8,10 +8,12 @@ RailsGaame::Application.routes.draw do
   resources :games
   resources :lists
   resources :matchs
-
+  resources :notifications
+  
   match 'sub_tournament' => 'tournaments#sub'
   match 'generate_match' => 'tournaments#generate'
   match 'choose_tournament' => 'rankings#choose'
+  match 'note_tournament' => 'tournaments#note'
 
   devise_scope :player do
     get '/players/auth/:provider/upgrade' => 'players/omniauth_callbacks#upgrade', as: :player_omniauth_upgrade
