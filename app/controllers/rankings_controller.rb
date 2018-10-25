@@ -1,6 +1,7 @@
 class RankingsController < ApplicationController
   # GET /rankings
   # GET /rankings.json
+  before_filter :authenticate_player!
   load_and_authorize_resource
   def index
     @rankings = Ranking.all

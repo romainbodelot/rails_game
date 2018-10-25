@@ -1,4 +1,7 @@
+<br/>
 <% @notifications.each do |notif| %>
+<div class="alert alert-info" role="alert">
 <%= link_to notif.action, tournament_path(notif.notifiable_id) %>
+</div>
 <br/>
 <% end %>

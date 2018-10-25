@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  before_filter :authenticate_player!
   load_and_authorize_resource
   include GamesHelper
   def index

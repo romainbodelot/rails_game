@@ -1,4 +1,5 @@
 class MatchsController < ApplicationController
+  before_filter :authenticate_player!
   load_and_authorize_resource
   include MatchsHelper
 

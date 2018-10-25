@@ -48,7 +48,9 @@
                       <a href="<%= profil_path %>">Profil</a>
                     </li>
                     <li>
-                      <a href="<%= notifications_path %>">Notification</a>
+                      <a href="<%= notifications_path %>">
+                        Notification <span class="badge"><%= Notification.where(:actor_id => current_player).size %></span>
+                      </a>
                     </li>
                     <li><%= render 'devise/menu/registration_items' %></li>
                     <li><%= render 'devise/menu/login_items' %></li>
