@@ -178,7 +178,7 @@ DEPENDENCIES
   net_http_ssl_fix
   omniauth
   omniauth-facebook
-  pg (= 0.18.1)
+  pg
   rails (= 3.2.22.2)
   rails_12factor
   sass-rails (~> 3.2.3)
