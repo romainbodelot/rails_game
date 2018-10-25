@@ -29,7 +29,7 @@
 <ul class="lead"><%= link_to game.name, game_path(game) %>
   <% a = List.where(:game_id => game.id, :tournament_id => @tournament.id).where('player_id IS NOT NULL').size %>
     <li class="h4" id="maxplayer">
-      <span id="<%= game.id %>"><%= "#{a}"%></span><%=" / #{@tournament.max_player} players" %>
+      <span id="game_<%= game.id %>"><%= "#{a}"%></span><%=" / #{@tournament.max_player} players" %>
     </li>
     <li class="h4"><%= link_to "Registration", sub_tournament_path(:player_id => current_player.id, :tournament_id => @tournament.id, :game_id => game.id), remote: true %></li>
   </ul>
