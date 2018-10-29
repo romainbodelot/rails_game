@@ -6,7 +6,8 @@ gem 'rails', '3.2.22.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
-  gem 'pg'
+  gem 'postgres-pr'
+  gem 'activerecord-postgresql-adapter'
   gem 'rails_12factor'
 end
 
@@ -49,8 +50,6 @@ gem 'figaro'
 gem 'net_http_ssl_fix', require: 'net_http_ssl_fix'
 
 gem "font-awesome-rails"
-
-gem 'activerecord-postgresql-adapter'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
