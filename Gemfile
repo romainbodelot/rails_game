@@ -50,6 +50,8 @@ gem 'net_http_ssl_fix', require: 'net_http_ssl_fix'
 
 gem "font-awesome-rails"
 
+gem 'activerecord-postgresql-adapter'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
