@@ -58,6 +58,7 @@ module RailsGaame
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+config.assets.precompile += %w[active_admin.css active_admin.js]
     config.assets.initialize_on_precompile = false
   end
 end
