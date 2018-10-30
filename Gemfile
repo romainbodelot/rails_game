@@ -39,7 +39,7 @@ gem 'omniauth-facebook'
 
 gem 'geocoder'
 
-gem 'bootstrap-sass', '3.2.0.2'
+gem 'bootstrap-sass', '3.1.1.0'
 
 gem 'autoprefixer-rails', '8.6.5'
 
