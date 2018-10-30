@@ -1,0 +1,8 @@
+/* ========================================================================
+ * Bootstrap: tab.js v3.1.1
+ * http://getbootstrap.com/javascript/#tabs
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+!function(o){"use strict";var n=function(t){this.element=o(t)};n.prototype.show=function(){var t=this.element,a=t.closest("ul:not(.dropdown-menu)"),e=t.data("target");if(e||(e=(e=t.attr("href"))&&e.replace(/.*(?=#[^\s]*$)/,"")),!t.parent("li").hasClass("active")){var n=a.find(".active:last a")[0],i=o.Event("show.bs.tab",{relatedTarget:n});if(t.trigger(i),!i.isDefaultPrevented()){var s=o(e);this.activate(t.parent("li"),a),this.activate(s,s.parent(),function(){t.trigger({type:"shown.bs.tab",relatedTarget:n})})}}},n.prototype.activate=function(t,a,e){function n(){i.removeClass("active").find("> .dropdown-menu > .active").removeClass("active"),t.addClass("active"),s?(t[0].offsetWidth,t.addClass("in")):t.removeClass("fade"),t.parent(".dropdown-menu")&&t.closest("li.dropdown").addClass("active"),e&&e()}var i=a.find("> .active"),s=e&&o.support.transition&&i.hasClass("fade");s?i.one(o.support.transition.end,n).emulateTransitionEnd(150):n(),i.removeClass("in")};var t=o.fn.tab;o.fn.tab=function(e){return this.each(function(){var t=o(this),a=t.data("bs.tab");a||t.data("bs.tab",a=new n(this)),"string"==typeof e&&a[e]()})},o.fn.tab.Constructor=n,o.fn.tab.noConflict=function(){return o.fn.tab=t,this},o(document).on("click.bs.tab.data-api",'[data-toggle="tab"], [data-toggle="pill"]',function(t){t.preventDefault(),o(this).tab("show")})}(jQuery);
